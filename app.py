@@ -5,6 +5,13 @@ app = Flask(__name__)
 IMAGE_DIR = os.path.join("static", "images")
 
 
+# Add this below your Flask app initialization
+@app.template_filter('capitalize_custom')
+def capitalize_after_space_and_dash(value):
+    import re
+    return re.sub(r'(^|[-\s])([a-z])', lambda m: m.group(1) + m.group(2).upper(), value)
+
+
 # Helper: get people from filenames
 def get_people():
     people = {}
